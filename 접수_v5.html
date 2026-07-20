@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>미래에셋증권 투자센터창원WM 고객 대기 등록</title>
+    <style>
+        /* 미래에셋증권 프리미엄 디자인 토큰 */
+        :root {
+            --mirae-navy: #002266;
+            --mirae-navy-light: #0d317a;
+            --mirae-orange: #E85B00;
+            --mirae-orange-hover: #CC4E00;
+            --bg-metallic: #f0f4f8;
+            --card-shadow: 0 20px 40px rgba(0, 34, 102, 0.08);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+            background-color: var(--bg-metallic); color: #1e293b; margin: 0; padding: 0; box-sizing: border-box;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; letter-spacing: -0.5px;
+        }
+        .container-panel { width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 24px 20px; box-sizing: border-box; position: relative; }
+        @media (min-width: 768px) { .container-panel { padding: 50px 80px; } }
+        .brand-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; }
+        @media (min-width: 768px) { .brand-header { justify-content: flex-start; padding-bottom: 25px; } }
+        .mirae-logo { display: flex; align-items: center; gap: 10px; }
+        .logo-symbol { width: 28px; height: 28px; background: linear-gradient(135deg, var(--mirae-orange) 0%, #ff8c00 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 16px; box-shadow: 0 4px 12px rgba(232, 91, 0, 0.3); }
+        @media (min-width: 768px) { .logo-symbol { width: 36px; height: 36px; font-size: 20px; border-radius: 8px; } }
+        .logo-text { font-size: 20px; font-weight: 800; color: var(--mirae-navy); letter-spacing: -1.5px; }
+        @media (min-width: 768px) { .logo-text { font-size: 28px; } }
+        .branch-badge { background-color: rgba(0, 34, 102, 0.06); color: var(--mirae-navy); padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        @media (min-width: 768px) { .branch-badge { padding: 4px 14px; font-size: 14px; margin-left: auto; } }
+        .status-toggle-btn { background-color: transparent; color: var(--mirae-navy); border: 1.5px solid var(--mirae-navy); padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; cursor: pointer; transition: var(--transition-smooth); display: inline-flex; align-items: center; gap: 4px; touch-action: manipulation; }
+        .status-toggle-btn:hover { background-color: var(--mirae-navy); color: white; }
+        .main-content { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 100%; margin: 0 auto; width: 100%; padding: 30px 0; }
+        @media (min-width: 768px) { .main-content { max-width: 960px; padding: 0; } }
+        .welcome-title { font-size: 28px; font-weight: 800; color: var(--mirae-navy); margin-bottom: 8px; line-height: 1.2; text-align: center; }
+        @media (min-width: 768px) { .welcome-title { font-size: 42px; margin-bottom: 12px; } }
+        .welcome-subtitle { font-size: 15px; color: #64748b; margin-bottom: 35px; font-weight: 500; text-align: center; }
+        @media (min-width: 768px) { .welcome-subtitle { font-size: 20px; margin-bottom: 60px; } }
+        .action-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 768px) { .action-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+        .menu-card { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 24px 20px; cursor: pointer; text-align: left; transition: var(--transition-smooth); box-shadow: 0 10px 20px rgba(0, 34, 102, 0.02); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 160px; box-sizing: border-box; touch-action: manipulation; }
+        .menu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background-color: var(--mirae-navy); transition: var(--transition-smooth); }
+        .menu-card.orange::before { background-color: var(--mirae-orange); }
+        .menu-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); border-color: rgba(0, 34, 102, 0.15); }
+        .menu-card.orange:hover { border-color: rgba(232, 91, 0, 0.2); }
+        .menu-card-title { font-size: 22px; font-weight: 800; color: var(--mirae-navy); margin-bottom: 6px; }
+        .menu-card.orange .menu-card-title { color: var(--mirae-orange); }
+        .menu-card-desc { font-size: 14px; color: #64748b; line-height: 1.5; }
+        .menu-arrow { font-size: 15px; font-weight: bold; align-self: flex-end; color: #cbd5e1; transition: var(--transition-smooth); margin-top: 15px; }
+        .menu-card:hover .menu-arrow { transform: translateX(6px); color: var(--mirae-navy); }
+        .menu-card.orange:hover .menu-arrow { color: var(--mirae-orange); }
+        @media (min-width: 768px) {
+            .menu-card { border-radius: 24px; padding: 50px 40px; min-height: 280px; height: 280px; }
+            .menu-card::before { width: 8px; }
+            .menu-card-title { font-size: 30px; margin-bottom: 12px; }
+            .menu-card-desc { font-size: 16px; }
+            .menu-arrow { font-size: 18px; margin-top: 0; }
+        }
+
+        .status-container { display: none; animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1); max-width: 600px; margin: 0 auto; width: 100%; }
+        .status-summary-board { display: flex; justify-content: space-around; background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 24px; box-shadow: 0 4px 10px rgba(0, 34, 102, 0.02); text-align: center; }
+        .status-sum-item { flex: 1; }
+        .status-sum-item:not(:last-child) { border-right: 1px solid #f1f5f9; }
+        .status-sum-item label { font-size: 12px; color: #64748b; font-weight: bold; display: block; margin-bottom: 4px; }
+        .status-sum-item span { font-size: 20px; font-weight: 800; color: var(--mirae-navy); }
+        .status-scroller { max-height: 50vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 6px; }
+        
+        .status-row-card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01); transition: var(--transition-smooth); }
+        .status-row-card.confirmed { background-color: #f1f5f9; border-color: #cbd5e1; opacity: 0.7; box-shadow: none; }
+        .status-card-info { display: flex; flex-direction: column; gap: 4px; text-align: left; }
+        .status-card-badge { font-size: 11px; font-weight: 800; color: var(--mirae-navy); background: #f1f5f9; padding: 3px 8px; border-radius: 20px; align-self: flex-start; border: 1px solid #e2e8f0; }
+        .status-card-badge.invest { color: var(--mirae-orange); background: #fff8f5; border-color: #ffd8a8; }
+        .status-card-title { font-size: 15px; font-weight: 800; color: #0f172a; }
+        .status-card-desc { font-size: 13px; color: #64748b; }
+
+        .admin-confirmed-badge { display: inline-block; font-size: 13px; color: #059669; background: #d1fae5; padding: 6px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin-top: 10px; font-weight: 900; align-self: flex-start; }
+        .status-btn-group { display: flex; flex-direction: column; gap: 8px; min-width: 80px; }
+        .status-card-complete-btn { background-color: var(--mirae-navy); color: white; border: none; padding: 8px 14px; font-size: 13px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: var(--transition-smooth); touch-action: manipulation; text-align: center; }
+        .status-card-complete-btn:hover { background-color: var(--mirae-navy-light); }
+        .status-card-cancel-btn { background-color: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 8px 14px; font-size: 13px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: var(--transition-smooth); touch-action: manipulation; text-align: center; }
+        .status-card-cancel-btn:hover { background-color: #fca5a5; color: #b91c1c; }
+        .back-to-reception-btn { width: 100%; background-color: var(--mirae-navy); color: white; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 24px; box-shadow: 0 4px 12px rgba(0, 34, 102, 0.15); transition: var(--transition-smooth); touch-action: manipulation; }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 60, 0.45); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        .modal-box { background: white; border-radius: 20px; width: 95%; max-width: 600px; max-height: 95vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 34, 102, 0.25); border-top: 8px solid var(--mirae-orange); box-sizing: border-box; padding: 24px; position: relative; animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+        @media (min-width: 768px) { .modal-box { border-radius: 28px; padding: 40px; } }
+        .step-progress-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding: 0 10px; }
+        .step-progress-item { display: flex; flex-direction: column; align-items: center; position: relative; flex: 1; }
+        .step-progress-item:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: 50%; width: 100%; height: 2px; background-color: #cbd5e1; z-index: 1; }
+        .step-progress-item.active:not(:last-child)::after { background-color: var(--mirae-orange); }
+        .step-num { width: 30px; height: 30px; background-color: #e2e8f0; color: #64748b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; z-index: 2; transition: var(--transition-smooth); }
+        .step-progress-item.active .step-num { background-color: var(--mirae-orange); color: white; box-shadow: 0 0 0 4px rgba(232, 91, 0, 0.2); }
+        .step-progress-item.completed .step-num { background-color: var(--mirae-navy); color: white; }
+        .step-label { font-size: 11px; font-weight: bold; color: #64748b; margin-top: 6px; z-index: 2; }
+        .step-progress-item.active .step-label { color: var(--mirae-orange); }
+        .step-progress-item.completed .step-label { color: var(--mirae-navy); }
+        
+        .modal-step-section { display: none; }
+        .modal-step-section.active { display: block; }
+        .selection-group { margin-bottom: 24px; text-align: left; }
+        .selection-group-title { font-size: 15px; font-weight: 800; color: var(--mirae-navy); margin-bottom: 10px; padding-left: 8px; border-left: 3px solid var(--mirae-orange); }
+        .selection-button-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .selection-button-grid.col-2 { grid-template-columns: repeat(2, 1fr); }
+        .choice-btn { background: #f8fafc; border: 2px solid #e2e8f0; padding: 12px 6px; font-size: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; color: #475569; transition: var(--transition-smooth); text-align: center; touch-action: manipulation; user-select: none; }
+        .choice-btn:hover { border-color: #cbd5e1; background: #f1f5f9; }
+        .choice-btn.active { background: #fff8f5; border-color: var(--mirae-orange); color: var(--mirae-orange); box-shadow: 0 4px 12px rgba(232, 91, 0, 0.08); }
+        
+        .room-button-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .room-btn { background: #f8fafc; border: 2px solid #e2e8f0; padding: 16px 8px; font-size: 15px; font-weight: 800; border-radius: 14px; cursor: pointer; color: #334155; transition: var(--transition-smooth); text-align: center; touch-action: manipulation; }
+        .room-btn:hover { border-color: var(--mirae-navy); background: #f1f5f9; }
+        .room-btn.active { background: var(--mirae-navy); border-color: var(--mirae-navy); color: white; box-shadow: 0 6px 15px rgba(0, 34, 102, 0.15); }
+        .room-btn.lobby-room { grid-column: span 3; background-color: #f1f5f9; border: 2px dashed #cbd5e1; }
+        .room-btn.lobby-room.active { background-color: var(--mirae-navy-light); border-color: var(--mirae-navy-light); color: white; }
+        
+        .modal-action-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+        .nav-btn { flex: 1; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer; transition: var(--transition-smooth); text-align: center; touch-action: manipulation; }
+        .nav-btn.prev-btn { background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; }
+        .nav-btn.next-btn { background: var(--mirae-orange); border: none; color: white; box-shadow: 0 4px 12px rgba(232, 91, 0, 0.2); }
+        .memo-field { text-align: left; margin-top: 15px; }
+        .memo-label { font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 6px; display: block; }
+        .memo-input { width: 100%; padding: 12px 14px; font-size: 15px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; transition: var(--transition-smooth); background-color: #f8fafc; }
+        
+        .tab-bar { display: flex; gap: 6px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 20px; overflow-x: auto; white-space: nowrap; }
+        .tab-item { background: #f8fafc; border: 1px solid #cbd5e1; padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 20px; cursor: pointer; color: #64748b; transition: var(--transition-smooth); flex-shrink: 0; }
+        .tab-item.active { background: var(--mirae-navy); color: white; border-color: var(--mirae-navy); }
+        @media (min-width: 768px) { .tab-bar { gap: 8px; margin-bottom: 24px; } .tab-item { padding: 12px 22px; font-size: 15px; } }
+        
+        .staff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .staff-btn { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px 8px; font-size: 15px; font-weight: bold; border-radius: 10px; cursor: pointer; color: #334155; transition: var(--transition-smooth); text-align: center; }
+        .staff-btn:hover { border-color: var(--mirae-orange); background: #fff7ed; color: var(--mirae-orange); }
+        .staff-btn.full-width { grid-column: span 2; background: #f1f5f9; color: #64748b; border: 1px dashed #cbd5e1; margin-top: 5px; padding: 14px; }
+        
+        .success-box { display: none; text-align: center; padding: 20px 0; }
+        .success-badge { width: 64px; height: 64px; background-color: #ecfdf5; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 30px; color: #10b981; margin-bottom: 20px; }
+        .success-title { font-size: 28px; font-weight: 800; color: var(--mirae-navy); margin-bottom: 12px; }
+        .ticket-number-box { display: inline-block; background: linear-gradient(135deg, #fffaf0 0%, #fff4e6 100%); color: var(--mirae-orange); font-size: 38px; font-weight: 900; padding: 10px 30px; border-radius: 16px; border: 2px dashed #ffd8a8; margin: 15px 0 20px; }
+        .custom-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 60, 0.45); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 2000; }
+        .custom-popup-box { background: white; border-radius: 16px; width: 90%; max-width: 380px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; border-top: 6px solid var(--mirae-orange); }
+        .brand-footer { border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 11px; color: #94a3b8; font-weight: 500; text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="container-panel">
+        <div class="brand-header">
+            <div class="mirae-logo">
+                <div class="logo-symbol">M</div>
+                <div class="logo-text">미래에셋증권</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="branch-badge">투자센터창원WM</span>
+                <button class="status-toggle-btn" id="btnStatusToggle" onclick="openStatusPage()">📋 현황/취소</button>
+            </div>
+        </div>
+
+        <div id="regStaffBar" style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 10px 16px; margin: 15px 0 5px 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px;">👤</span>
+                <span style="font-size: 14px; font-weight: 800; color: var(--mirae-navy);">접수 진행 직원</span>
+            </div>
+            <select id="selRegStaff" onchange="saveRegStaff()" style="padding: 6px 12px; font-size: 13px; border-radius: 8px; border: 1.5px solid #cbd5e1; outline: none; font-weight: bold; color: var(--mirae-navy); background: white;">
+                <option value="객장">객장 (기본)</option>
+                <option value="송은영">송은영</option><option value="이소희">이소희</option><option value="오해진">오해진</option>
+                <option value="송혜진">송혜진</option><option value="곽효인">곽효인</option><option value="김설희">김설희</option><option value="최주연">최주연</option>
+            </select>
+        </div>
+
+        <div class="main-content">
+            <div id="mainUI">
+                <div class="welcome-title">고객 서비스 접수</div>
+                <div class="welcome-subtitle">원하시는 업무 구분을 선택하여 접수해 주십시오.</div>
+                <div class="action-grid">
+                    <div class="menu-card" onclick="handleSubmit('task', '지정 없음', '')">
+                        <div>
+                            <div class="menu-card-title">일반 업무</div>
+                            <div class="menu-card-desc">계좌개설 / 입출금 / 카드 발급 등 금융서비스</div>
+                        </div>
+                        <div class="menu-arrow">접수하기 →</div>
+                    </div>
+                    <div class="menu-card orange" onclick="openPbModal()">
+                        <div>
+                            <div class="menu-card-title">투자 상담</div>
+                            <div class="menu-card-desc">주식, 채권, 연금 및 금융상품 상담 서비스</div>
+                        </div>
+                        <div class="menu-arrow">상담 신청하기 →</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="statusUI" class="status-container">
+                <div class="welcome-title">접수 대기 현황</div>
+                <div class="status-summary-board">
+                    <div class="status-sum-item"><label>총 대기 고객</label><span id="txtSumTotal">0</span></div>
+                    <div class="status-sum-item"><label>일반 업무</label><span id="txtSumTask">0</span></div>
+                    <div class="status-sum-item"><label>투자 상담</label><span id="txtSumInvest">0</span></div>
+                </div>
+                <div class="status-scroller" id="statusListContainer"></div>
+                <button class="back-to-reception-btn" onclick="closeStatusPage()">접수화면으로 돌아가기</button>
+            </div>
+
+            <div id="successUI" class="success-box">
+                <div class="success-badge">✓</div>
+                <div class="success-title">접수가 완료되었습니다</div>
+                <div class="success-desc" style="font-weight: bold; font-size: 16px; color: var(--mirae-navy);" id="successDetailInfo"></div>
+                <div><span class="ticket-number-box" id="lblTicketNum">0</span></div>
+                <button class="back-to-reception-btn" onclick="resetToHome()">확인 (처음 화면으로)</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="pbModal">
+            <div class="modal-box">
+                <div class="step-progress-container">
+                    <div class="step-progress-item active" id="indicatorStep1"><div class="step-num">1</div><div class="step-label">상담 정보</div></div>
+                    <div class="step-progress-item" id="indicatorStep2"><div class="step-num">2</div><div class="step-label">상담실</div></div>
+                    <div class="step-progress-item" id="indicatorStep3"><div class="step-num">3</div><div class="step-label">상담 직원</div></div>
+                </div>
+
+                <div class="modal-step-section active" id="modalStep1">
+                    <div class="selection-group">
+                        <div class="selection-group-title">고객 유형 선택</div>
+                        <div class="selection-button-grid">
+                            <button class="choice-btn" data-category="customerType" data-val="기존고객" onclick="toggleSelection(this)">기존고객</button>
+                            <button class="choice-btn" data-category="customerType" data-val="신규고객" onclick="toggleSelection(this)">신규고객</button>
+                            <button class="choice-btn" data-category="customerType" data-val="다이렉트" onclick="toggleSelection(this)">다이렉트</button>
+                        </div>
+                    </div>
+                    <div class="selection-group">
+                        <div class="selection-group-title">상담 내용 선택</div>
+                        <div class="selection-button-grid">
+                            <button class="choice-btn" data-category="consultArea" data-val="주식" onclick="toggleSelection(this)">주식</button>
+                            <button class="choice-btn" data-category="consultArea" data-val="채권" onclick="toggleSelection(this)">채권</button>
+                            <button class="choice-btn" data-category="consultArea" data-val="연금" onclick="toggleSelection(this)">연금</button>
+                            <button class="choice-btn" data-category="consultArea" data-val="IRP" onclick="toggleSelection(this)">IRP</button>
+                            <button class="choice-btn" data-category="consultArea" data-val="ISA" onclick="toggleSelection(this)">ISA</button>
+                            <button class="choice-btn" data-category="consultArea" data-val="종합상담" onclick="toggleSelection(this)">종합상담</button>
+                        </div>
+                    </div>
+                    <div class="selection-group">
+                        <div class="selection-group-title">특이사항 선택</div>
+                        <div class="selection-button-grid col-2">
+                            <button class="choice-btn" data-category="specialNotes" data-val="투자경험없음" onclick="toggleSelection(this)">투자경험없음</button>
+                            <button class="choice-btn" data-category="specialNotes" data-val="상담후 계좌개설" onclick="toggleSelection(this)">상담후 계좌개설</button>
+                        </div>
+                    </div>
+                    <div class="memo-field">
+                        <label class="memo-label">기타 요청사항</label>
+                        <input type="text" id="txtDirectMemo" class="memo-input" placeholder="기타 특이사항이 있다면 직접 입력해 주세요 (선택)">
+                    </div>
+                    <div class="modal-action-footer">
+                        <button class="nav-btn prev-btn cancel-link" onclick="closePbModal()">취소</button>
+                        <button class="nav-btn next-btn" onclick="goToStep(2)">다음 →</button>
+                    </div>
+                </div>
+
+                <div class="modal-step-section" id="modalStep2">
+                    <div class="selection-group">
+                        <div class="selection-group-title" style="text-align: center; font-size: 16px;">고객을 응대할 상담실을 선택해 주십시오.</div>
+                        <div class="room-button-grid">
+                            <button class="room-btn" data-room="상담실 1" onclick="selectRoom(this)">상담실 1</button>
+                            <button class="room-btn" data-room="상담실 2" onclick="selectRoom(this)">상담실 2</button>
+                            <button class="room-btn" data-room="상담실 3" onclick="selectRoom(this)">상담실 3</button>
+                            <button class="room-btn" data-room="상담실 4" onclick="selectRoom(this)">상담실 4</button>
+                            <button class="room-btn" data-room="상담실 5" onclick="selectRoom(this)">상담실 5</button>
+                            <button class="room-btn" data-room="상담실 6" onclick="selectRoom(this)">상담실 6</button>
+                            <button class="room-btn" data-room="상담실 7" onclick="selectRoom(this)">상담실 7</button>
+                            <button class="room-btn" data-room="상담실 8" onclick="selectRoom(this)">상담실 8</button>
+                            <button class="room-btn" data-room="상담실 9" onclick="selectRoom(this)">상담실 9</button>
+                            <button class="room-btn" data-room="상담실 10" onclick="selectRoom(this)">상담실 10</button>
+                            <button class="room-btn lobby-room" data-room="객장" onclick="selectRoom(this)">객장</button>
+                        </div>
+                    </div>
+                    <div class="modal-action-footer">
+                        <button class="nav-btn prev-btn" onclick="goToStep(1)">← 이전</button>
+                        <button class="nav-btn next-btn" onclick="goToStep(3)">다음 →</button>
+                    </div>
+                </div>
+
+                <div class="modal-step-section" id="modalStep3">
+                    <div class="tab-bar">
+                        <div id="t_1팀" class="tab-item active" onclick="switchTeam('1팀')">1팀</div>
+                        <div id="t_2팀" class="tab-item" onclick="switchTeam('2팀')">2팀</div>
+                        <div id="t_3팀" class="tab-item" onclick="switchTeam('3팀')">3팀</div>
+                        <div id="t_디지털" class="tab-item" onclick="switchTeam('디지털')">디지털PB팀</div>
+                    </div>
+                    <div class="staff-grid" id="staffContainer"></div>
+                    <div class="modal-action-footer">
+                        <button class="nav-btn prev-btn" onclick="goToStep(2)">← 이전</button>
+                        <button class="nav-btn cancel-link" onclick="closePbModal()">처음부터 다시</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="customAlert" class="custom-popup-overlay">
+            <div class="custom-popup-box">
+                <div style="font-size: 28px; margin-bottom: 12px;">⚠️</div>
+                <div id="customAlertMessage" style="font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 20px; line-height: 1.5;"></div>
+                <button class="status-card-complete-btn" style="width: 100%; padding: 12px; border-radius: 8px;" onclick="closeCustomAlert()">확인</button>
+            </div>
+        </div>
+
+        <div id="customConfirm" class="custom-popup-overlay">
+            <div class="custom-popup-box">
+                <div style="font-size: 28px; margin-bottom: 12px;">❓</div>
+                <div id="customConfirmMessage" style="font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 20px; line-height: 1.5;"></div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="status-card-cancel-btn" style="flex: 1; padding: 12px; border-radius: 8px;" onclick="closeCustomConfirm(false)">취소</button>
+                    <button class="status-card-complete-btn" style="flex: 1; padding: 12px; border-radius: 8px;" onclick="closeCustomConfirm(true)">확인</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="brand-footer">미래에셋증권 투자센터창원WM © 2026. ALL RIGHTS RESERVED.</div>
+    </div>
+
+    <script>
+        const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const TOPIC_URL = `https://ntfy.sh/mirae_asset_kiosk_changwon_${todayStr}`;
+
+        const STAFF_DATA = {
+            "1팀": ["강지수 팀장", "노미경 이사", "박재미 수석", "이광희 수석", "이남영 수석", "이정훈 수석", "임진수 수석"],
+            "2팀": ["장용호 팀장", "구성순 수석", "김연숙 수석", "김홍철 수석", "심효언 수석", "채상현 수석"],
+            "3팀": ["하승균 팀장", "이상태 이사", "김성현 수석", "박일수 수석", "변양순 수석", "차기택 수석", "천명화 수석"],
+            "디지털": ["서영철 수석", "하성진 수석", "김진경 수석"]
+        };
+
+        const state = { list: {} };
+        const currentSelection = { customerType: [], consultArea: [], specialNotes: [], subjectiveMemo: '', room: '객장' };
+        let currentActiveTeam = '1팀'; let currentStep = 1; let lastVerifiedTicketNum = 0; let sseStream = null; let confirmCallback = null;
+
+        function showCustomAlert(msg) { document.getElementById('customAlertMessage').textContent = msg; document.getElementById('customAlert').style.display = 'flex'; }
+        function closeCustomAlert() { document.getElementById('customAlert').style.display = 'none'; }
+        function showCustomConfirm(msg, callback) { document.getElementById('customConfirmMessage').textContent = msg; confirmCallback = callback; document.getElementById('customConfirm').style.display = 'flex'; }
+        function closeCustomConfirm(result) { document.getElementById('customConfirm').style.display = 'none'; if (confirmCallback) { confirmCallback(result); confirmCallback = null; } }
+        function saveRegStaff() { localStorage.setItem('mirae_reg_staff', document.getElementById('selRegStaff').value); }
+
+        function openPbModal() {
+            currentSelection.customerType = []; currentSelection.consultArea = []; currentSelection.specialNotes = []; currentSelection.subjectiveMemo = ''; currentSelection.room = '객장';
+            document.getElementById('txtDirectMemo').value = '';
+            document.querySelectorAll('.choice-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.room-btn').forEach(btn => { if(btn.getAttribute('data-room') === '객장') btn.classList.add('active'); else btn.classList.remove('active'); });
+            currentStep = 1; renderStepUI(); document.getElementById('pbModal').style.display = 'flex';
+        }
+        function closePbModal() { document.getElementById('pbModal').style.display = 'none'; }
+        function renderStepUI() {
+            document.querySelectorAll('.modal-step-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.step-progress-item').forEach((item, idx) => { item.classList.remove('active', 'completed'); const stepNum = idx + 1; if (stepNum < currentStep) item.classList.add('completed'); else if (stepNum === currentStep) item.classList.add('active'); });
+            document.getElementById(`modalStep${currentStep}`).classList.add('active'); if (currentStep === 3) switchTeam('1팀');
+        }
+        function goToStep(stepNum) { if (stepNum === 2) currentSelection.subjectiveMemo = document.getElementById('txtDirectMemo').value; currentStep = stepNum; renderStepUI(); }
+        function toggleSelection(btn) { const category = btn.getAttribute('data-category'); const val = btn.getAttribute('data-val'); if (category === 'customerType') toggleArrayValue(currentSelection.customerType, val); else if (category === 'consultArea') toggleArrayValue(currentSelection.consultArea, val); else if (category === 'specialNotes') toggleArrayValue(currentSelection.specialNotes, val); btn.classList.toggle('active'); }
+        function toggleArrayValue(arr, val) { const idx = arr.indexOf(val); if (idx > -1) arr.splice(idx, 1); else arr.push(val); }
+        function selectRoom(btn) { document.querySelectorAll('.room-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentSelection.room = btn.getAttribute('data-room'); setTimeout(() => { goToStep(3); }, 200); }
+        function switchTeam(teamName) { currentActiveTeam = teamName; document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active')); const tabId = teamName === '디지털' ? 't_디지털' : `t_${teamName}`; const tabEl = document.getElementById(tabId); if (tabEl) tabEl.classList.add('active'); renderStaffGrid(); }
+
+        function renderStaffGrid() {
+            const container = document.getElementById('staffContainer'); container.innerHTML = '';
+            const staffList = STAFF_DATA[currentActiveTeam] || [];
+            staffList.forEach(name => { const btn = document.createElement('button'); btn.className = 'staff-btn'; btn.textContent = name; btn.onclick = () => { submitConsultation(currentActiveTeam, name); }; container.appendChild(btn); });
+            
+            const noDesignationBtn = document.createElement('button'); noDesignationBtn.className = 'staff-btn full-width'; noDesignationBtn.textContent = '지정 없음 (공통 대기 접수)';
+            noDesignationBtn.onclick = () => { submitConsultation('지정 없음', '지정 없음'); };
+            container.appendChild(noDesignationBtn);
+        }
+
+        function submitConsultation(group, pbName) {
+            const memoParts = []; const customerTypeStr = currentSelection.customerType.join(','); const consultAreaStr = currentSelection.consultArea.join(','); const specialStr = currentSelection.specialNotes.join(',');
+            if (customerTypeStr) memoParts.push(`고객: ${customerTypeStr}`); if (consultAreaStr) memoParts.push(`업무: ${consultAreaStr}`); if (specialStr) memoParts.push(`특이사항: ${specialStr}`); if (currentSelection.subjectiveMemo.trim()) memoParts.push(`기타메모: ${currentSelection.subjectiveMemo.trim()}`);
+            const combinedMemoText = `[상담실: ${currentSelection.room}] ` + (memoParts.join(' | ') || '상담 요청');
+            handleSubmit('invest', pbName, combinedMemoText, group); closePbModal();
+        }
+
+        function generateId() { return 'req_' + Math.random().toString(36).substr(2, 9); }
+
+        async function handleSubmit(groupType, pbName, rawMemo, teamGroup = '지정 없음') {
+            const isInvest = (groupType === 'invest'); const targetType = isInvest ? '투자 상담' : '일반 업무';
+            const localNumList = Object.values(state.list).map(x => x.ticketNum || 0);
+            const currentMax = localNumList.length > 0 ? Math.max(...localNumList) : lastVerifiedTicketNum;
+            const nextTicketNum = Math.max(currentMax + 1, lastVerifiedTicketNum + 1);
+            const recordId = generateId(); const currentRegStaff = document.getElementById('selRegStaff').value;
+
+            const payload = {
+                action: 'add', id: recordId, ticketNum: nextTicketNum, type: targetType, group: teamGroup, pbName: pbName,
+                room: isInvest ? currentSelection.room : '객장', customerType: isInvest ? currentSelection.customerType : [],
+                consultationArea: isInvest ? currentSelection.consultArea : [], specialNotes: isInvest ? currentSelection.specialNotes : [],
+                subjectiveMemo: isInvest ? currentSelection.subjectiveMemo : '', memo: rawMemo, regStaff: currentRegStaff, timestamp: Date.now(),
+                lobbyDone: false, adminConfirmed: false
+            };
+
+            try {
+                await fetch(TOPIC_URL, { method: 'POST', body: JSON.stringify(payload) });
+                state.list[recordId] = payload; lastVerifiedTicketNum = nextTicketNum;
+                document.getElementById('lblTicketNum').textContent = nextTicketNum;
+                if (isInvest) {
+                    const groupDisplayName = teamGroup === '지정 없음' ? '' : (teamGroup === '디지털' ? '디지털PB팀 ' : teamGroup + ' ');
+                    document.getElementById('successDetailInfo').textContent = `${targetType} | ${currentSelection.room} | ${groupDisplayName}${pbName}`;
+                } else document.getElementById('successDetailInfo').textContent = `${targetType}`;
+                document.getElementById('mainUI').style.display = 'none'; document.getElementById('statusUI').style.display = 'none'; document.getElementById('successUI').style.display = 'block';
+            } catch (error) { showCustomAlert('네트워크 통신 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); }
+        }
+
+        function openStatusPage() { document.getElementById('mainUI').style.display = 'none'; document.getElementById('successUI').style.display = 'none'; document.getElementById('statusUI').style.display = 'block'; renderStatusList(); }
+        function closeStatusPage() { document.getElementById('statusUI').style.display = 'none'; document.getElementById('mainUI').style.display = 'block'; }
+        function resetToHome() { document.getElementById('successUI').style.display = 'none'; document.getElementById('statusUI').style.display = 'none'; document.getElementById('mainUI').style.display = 'block'; }
+
+        function renderStatusList() {
+            const container = document.getElementById('statusListContainer'); container.innerHTML = '';
+            const sortedItems = Object.values(state.list).sort((a, b) => {
+                if (a.lobbyDone !== b.lobbyDone) return a.lobbyDone ? 1 : -1;
+                return (b.ticketNum || 0) - (a.ticketNum || 0);
+            });
+
+            let taskWaitCount = 0; let investWaitCount = 0;
+
+            sortedItems.forEach(item => {
+                if (!item.lobbyDone) {
+                    if (item.type === '일반 업무') taskWaitCount++;
+                    if (item.type === '투자 상담') investWaitCount++;
+                }
+
+                const card = document.createElement('div'); card.className = `status-row-card ${item.lobbyDone ? 'confirmed' : ''}`;
+                
+                const groupDisplayName = item.group === '지정 없음' ? '' : (item.group === '디지털' ? '디지털PB팀 ' : item.group + ' ');
+                const pbLabel = item.type === '투자 상담' ? `<div style="font-size: 13px; font-weight: bold; margin-top: 4px; color: var(--mirae-navy-light);">${groupDisplayName}${item.pbName}</div>` : '';
+                const adminBadge = item.adminConfirmed ? '<span class="admin-confirmed-badge">WM룸 확인 완료</span>' : '';
+
+                card.innerHTML = `
+                    <div class="status-card-info">
+                        <span class="status-card-badge ${item.type === '투자 상담' ? 'invest' : ''}">${item.type}</span>
+                        <div class="status-card-title">대기번호 ${item.ticketNum}${item.room ? ` (${item.room})` : ''}</div>
+                        <div class="status-card-desc">${item.memo || '업무 처리 요청'}</div>
+                        ${pbLabel}
+                        <div style="font-size:11px; color:#94a3b8; margin-top:4px;">접수직원: ${item.regStaff || '객장'}</div>
+                        ${adminBadge}
+                    </div>
+                    <div class="status-btn-group">
+                        ${!item.lobbyDone ? `<button class="status-card-complete-btn" onclick="requestComplete('${item.id}')">완료</button>` : '<span style="font-size:12px;color:#94a3b8;font-weight:bold;text-align:center;">처리완료</span>'}
+                        <button class="status-card-cancel-btn" onclick="requestCancel('${item.id}')">취소</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('txtSumTotal').textContent = taskWaitCount + investWaitCount;
+            document.getElementById('txtSumTask').textContent = taskWaitCount;
+            document.getElementById('txtSumInvest').textContent = investWaitCount;
+        }
+
+        async function requestComplete(id) {
+            // 변경사항 반영: 팝업 멘트 단순화
+            showCustomConfirm('완료 하시겠습니까?', async (confirmed) => {
+                if (!confirmed) return;
+                if (state.list[id]) state.list[id].lobbyDone = true;
+                try {
+                    await fetch(TOPIC_URL, { method: 'POST', body: JSON.stringify({ action: 'lobby_ui_complete_status', id: id }) });
+                    renderStatusList();
+                } catch (err) { showCustomAlert('통신 오류가 발생했습니다. 다시 시도해 주세요.'); }
+            });
+        }
+
+        function requestCancel(id) {
+            // 변경사항 반영: 팝업 멘트 단순화
+            showCustomConfirm('취소 하시겠습니까?', async (confirmed) => {
+                if (!confirmed) return;
+                try {
+                    await fetch(TOPIC_URL, { method: 'POST', body: JSON.stringify({ action: 'lobby_complete', id: id }) });
+                    delete state.list[id]; renderStatusList();
+                } catch (err) { showCustomAlert('통신 오류가 발생했습니다. 취소 요청을 다시 시도해 주세요.'); }
+            });
+        }
+
+        async function syncWaitingQueue() {
+            try {
+                const response = await fetch(`${TOPIC_URL}/json?poll=1`); const events = await response.json();
+                events.forEach(ev => {
+                    try {
+                        const dataObj = JSON.parse(ev.message);
+                        if (dataObj.action === 'add') { state.list[dataObj.id] = dataObj; if (dataObj.ticketNum > lastVerifiedTicketNum) lastVerifiedTicketNum = dataObj.ticketNum; }
+                        else if (dataObj.action === 'complete') { if (state.list[dataObj.id]) state.list[dataObj.id].adminConfirmed = true; }
+                        else if (dataObj.action === 'lobby_ui_complete_status') { if (state.list[dataObj.id]) state.list[dataObj.id].lobbyDone = true; }
+                        else if (dataObj.action === 'lobby_complete') { delete state.list[dataObj.id]; }
+                    } catch (e) {}
+                });
+                renderStatusList();
+            } catch (err) {}
+        }
+
+        function startSSEConnection() {
+            if (sseStream) sseStream.close(); sseStream = new EventSource(`${TOPIC_URL}/sse`);
+            sseStream.onmessage = (e) => {
+                try {
+                    const parsed = JSON.parse(e.data);
+                    if (parsed.event === 'message') {
+                        const dataObj = JSON.parse(parsed.message);
+                        if (dataObj.action === 'add') { dataObj.lobbyDone = false; dataObj.adminConfirmed = false; state.list[dataObj.id] = dataObj; if (dataObj.ticketNum > lastVerifiedTicketNum) lastVerifiedTicketNum = dataObj.ticketNum; }
+                        else if (dataObj.action === 'complete') { if (state.list[dataObj.id]) { state.list[dataObj.id].adminConfirmed = true; } }
+                        else if (dataObj.action === 'lobby_ui_complete_status') { if (state.list[dataObj.id]) state.list[dataObj.id].lobbyDone = true; }
+                        else if (dataObj.action === 'lobby_complete') { delete state.list[dataObj.id]; }
+                        renderStatusList();
+                    }
+                } catch(err) {}
+            };
+            sseStream.onerror = () => { setTimeout(startSSEConnection, 3000); };
+        }
+
+        window.onload = function() { syncWaitingQueue(); const savedRegStaff = localStorage.getItem('mirae_reg_staff') || '객장'; if (document.getElementById('selRegStaff')) document.getElementById('selRegStaff').value = savedRegStaff; startSSEConnection(); };
+    </script>
+</body>
+</html>
